@@ -10,6 +10,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { ActionAreaComponent } from '@components/action-area/action-area.component';
 import { MaterialsModule } from '@shared/modules';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MaterialsModule } from '@shared/modules';
     SidebarComponent,
     ActionAreaComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MaterialsModule],
+  imports: [BrowserModule, AppRoutingModule, MaterialsModule, PortalModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { PortalBridgeService } from '@shared/services';
 
 @Component({
   selector: 'pr-action-area',
@@ -6,4 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './action-area.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActionAreaComponent {}
+export class ActionAreaComponent {
+  public readonly portal$ = inject(PortalBridgeService).portal$;
+}
