@@ -2,15 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnDestroy,
   OnInit,
-  TemplateRef,
   ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 
 import { USER_DATA } from '@shared/data';
 import { PortalBridgeService } from '@shared/services';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { CdkPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'pr-users-page',
@@ -18,21 +17,24 @@ import { TemplatePortal } from '@angular/cdk/portal';
   styleUrl: './users-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersPageComponent implements OnInit {
+export class UsersPageComponent implements OnInit, OnDestroy {
   private readonly service = inject(PortalBridgeService);
-  private readonly viewContainerRef = inject(ViewContainerRef);
-
   public readonly displayedColumns = ['name', 'lastName', 'profession'];
+
   public readonly dataSource = USER_DATA;
 
-  @ViewChild('portalContent', { static: true })
-  portalContent!: TemplateRef<unknown>;
+  @ViewChild(CdkPortal, { static: true })
+  private readonly portalContent!: CdkPortal;
 
   ngOnInit(): void {
-    const portal = new TemplatePortal(
-      this.portalContent,
-      this.viewContainerRef,
-    );
-    this.service.setPortal(portal);
+    this.service.setPortal(this.portalContent);
+  }
+
+  ngOnDestroy(): void {
+    this.portalContent.detach();
+  }
+
+  public handleClick(): void {
+    console.log('click');
   }
 }

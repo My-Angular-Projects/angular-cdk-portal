@@ -16,8 +16,12 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<ng-template #portalContent>
-  <button mat-fab color="accent">
+<ng-container *cdkPortal>
+  <button
+    mat-fab
+    color="accent"
+    (click)="handleClick()"
+  >
     <mat-icon>add</mat-icon>
   </button>
-</ng-template>
+</ng-container>
